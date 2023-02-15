@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 15432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      postgres_network:
+        aliases:
+          - postgres_host
+volumes:
+  pgdata:
+    external: true
+networks:
+  postgres_network:
+    name: postgres_net
+    driver: bridge
