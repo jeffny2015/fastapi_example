@@ -3,11 +3,10 @@ from fastapi import Security, HTTPException, Depends
 from starlette.status import HTTP_403_FORBIDDEN
 from config import AuthSettings, get_auth_settings
 
-api_key_header = APIKeyHeader(name="RPA_TOKEN", auto_error=False)
+api_key_header = APIKeyHeader(name="ACCESS_TOKEN", auto_error=False)
 
 
 async def get_api_key(settings: AuthSettings = Depends(get_auth_settings), api_key_header: str = Security(api_key_header)):
-    print("enter")
     if api_key_header == settings.API_KEY:
         return api_key_header
     else:
