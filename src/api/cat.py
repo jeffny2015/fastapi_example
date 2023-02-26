@@ -14,6 +14,7 @@ router = APIRouter(
 @router.get("", response_model=CatResponse, status_code=HTTP_200_OK)
 async def get_cats(settings: APICatSettings = Depends(get_cat_settings), api_key: APIKey = Depends(auth.get_api_key)):
     async with AsyncClient() as client:
+        print(settings.API_URI)
         response = await client.get(url=settings.API_URI)
         r = response.json()
         
